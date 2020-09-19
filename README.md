@@ -1,7 +1,7 @@
 # mbe-model-compiler-for-python
 This is an attempt to build a semantic model compiler which is forked from the v5.3 of the java model compiler by Steve Tockey based on his book How to Engineer Software.
 
-The generated code from the semantic model is meant to be correct for Python 3.7.7 and above.
+The generated code from the semantic model is meant to be correct for Django 2.2 relying on Python 3.7.7 and above
 
 ## Map of what's going on
 
@@ -14,7 +14,7 @@ The `.jal.txt` files are in `JAL` folder
 
 The `target` folder contains the expected python files.
 
-Target language is Python 3.7.7 and above.
+Target language is Django 2.2.
 
 The `output` folder contains the actual generated code from the semantic models.
 
