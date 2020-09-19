@@ -1,8 +1,8 @@
 <jalmodel>
-   Simple class
+   Hello World
 
    <javasourcecodedirectory>
-      /Users/kim/eclipse-workspace/mbe-python-model-compiler/generated/
+      /Users/kim/eclipse-workspace/mbe-model-compiler-for-django/generated/
 
    <isverboseon>
       true
@@ -17,7 +17,7 @@
       false
 
    <languageframeworkoutput>
-      python37
+      django22
 
    <range>
       unconstrained
@@ -27,66 +27,49 @@
    </range>
 
    <range>
-      x type
+      Hello World reference
       <span>
          <rttype>
-            int
-         <assert>
-            $ > 0
+            HelloWorld
    </range>
 
    <range>
-      Simple class reference
+      Hello World set
       <span>
          <rttype>
-            SimpleClass
-   </range>
-
-   <range>
-      Simple class set
-      <span>
-         <rttype>
-            ArrayList<SimpleClass>
+            ArrayList<HelloWorld>
    </range>
 
    <class>
-      Simple class
+      Hello World
 
       <pimimport>
-         from enum import Enum
-         from typing import ClassVar, List
+         from django.db import models
+         from model_utils import Choices
+         from model_utils.fields import StatusField
       </pimimport>
-
-      <attribute>
-         x
-            <range>
-               x type
-      </attribute>
 
       <attribute>
          state
       </attribute>
 
       <action>
-         initializer
+         say hello
          <guarantees>
-            x has been set to zero
+            "Hello" has been said
          </guarantees>
          <pimaction>
-            .@a x @ = 0
+            .print( "Hello, world!" )
          </pimaction>
       </action>
 
       <action>
-         update x
-         <parameter>
-            new x
-            x type
+         say goodbye
          <guarantees>
-            x has been set to new x
+            "Goodbye" has been said
          </guarantees>
          <pimaction>
-            .@a x @ = @i new x @
+            .print( "Goodbye, cruel world" )
          </pimaction>
       </action>
 
@@ -106,37 +89,33 @@
          <<destroy>>
       </event>
 
-      <event>
-         update
-      </event>
-
       <transition>
          Doesn't exist
          <<new>>
          Exists
          <transitionaction>
-            initializer
+            say hello
       </transition>
 
       <transition>
          Exists
          <<destroy>>
          Doesn't exist
-      </transition>
-
-      <transition>
-         Exists
-         update
-         Exists
          <transitionaction>
-            update x
+            say goodbye
       </transition>
 
       <pimhelper>
-         .# comment 1
-         .# helper comment 2
-         .	# helper comment 3
-         .# comment 4
+         .@/ @staticmethod /@
+         .def main():
+         .    """
+         .    Just a way to print lines
+         .    """
+         .    print("Hello World, in model-based form")
+         .    a_hello = HelloWorld()
+         .    a_hello.destroy()
+         .    print("Done...")
+         .
       </pimhelper>
 
    </class>

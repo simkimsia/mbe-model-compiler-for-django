@@ -2,7 +2,7 @@
    Simple class
 
    <javasourcecodedirectory>
-      /Users/kim/eclipse-workspace/mbe-python-model-compiler/generated/django22/
+      /Users/kim/eclipse-workspace/mbe-model-compiler-for-django/generated/django22/
 
    <isverboseon>
       true

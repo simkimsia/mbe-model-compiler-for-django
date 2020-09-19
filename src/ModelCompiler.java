@@ -28,8 +28,8 @@ public class ModelCompiler {
 	// Constants
 
 	public static final String versionId = "v5.3";
-	public static final String DEFAULT_JAL_IMPORT_PATH = "/Users/kim/eclipse-workspace/mbe-python-model-compiler/JAL/";
-	public static final String DEFAULT_JAVA_EXPORT_PATH = "/Users/kim/eclipse-workspace/mbe-python-model-compiler/generated/";
+	public static final String DEFAULT_JAL_IMPORT_PATH = "/Users/kim/eclipse-workspace/mbe-model-compiler-for-django/JAL/";
+	public static final String DEFAULT_JAVA_EXPORT_PATH = "/Users/kim/eclipse-workspace/mbe-model-compiler-for-django/generated/";
 
 	// Static (class) variables
 

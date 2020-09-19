@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from enum import Enum
-from typing import ClassVar, List
+from django.db import models
+from model_utils import Choices
+from model_utils.fields import StatusField
 # see MMClass.rulePIMImportsList for implementation
 
 class HelloWorld:
 
-    # generated 2020/09/07 21:29:55 by JAL open model compiler v5.3
+    # generated 2020/09/19 17:45:51 by JAL open model compiler v5.3
     
     
     # Class description
@@ -113,7 +114,7 @@ class HelloWorld:
 
     # PIM Overlay helper code
     
-    
+    @staticmethod
     def main():
         """
         Just a way to print lines
