@@ -52,6 +52,10 @@
    <class>
       Simple class
 
+      <pimclassinherits>
+         models.Model
+      </pimclassinherits>
+
       <pimimport>
          from django.db import models
          from model_utils import Choices

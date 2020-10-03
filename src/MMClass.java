@@ -37,6 +37,8 @@ public class MMClass {
 	public static final String tagClassEnd = "</class>";
 	public static final String tagPIMImportStart = "<pimimport>";
 	public static final String tagPIMImportEnd = "</pimimport>";
+	public static final String tagPIMClassInheritStart = "<pimclassinherits>";
+	public static final String tagPIMClassInheritEnd = "</pimclassinherits>";
 	public static final String tagPIMConstantsStart = "<pimconstant>";
 	public static final String tagPIMConstantsEnd = "</pimconstant>";
 
@@ -69,6 +71,14 @@ public class MMClass {
 				line = JALInput.nextLine();
 				while (!line.contains(MMClass.tagPIMImportEnd)) {
 					newClass.addPIMImport(line);
+					line = JALInput.nextLine();
+				}
+			}
+			if (line.contains(MMClass.tagPIMClassInheritStart)) {
+				newClass.clearPIMClassInherits();
+				line = JALInput.nextLine();
+				while (!line.contains(MMClass.tagPIMClassInheritEnd)) {
+					newClass.addPIMClassInherit(line);
 					line = JALInput.nextLine();
 				}
 			}
@@ -159,6 +169,7 @@ public class MMClass {
 
 	// PIM Overlay instance variables
 	private ArrayList<String> pIMImportSet;
+	private ArrayList<String> pIMClassInheritSet;
 	private ArrayList<String> pIMConstantSet;
 	private ArrayList<String> pIMHelperCode;
 
@@ -186,6 +197,7 @@ public class MMClass {
 		stateEventBehaviorSet = new ArrayList<StateEventBehavior>();
 		stateEventBehaviorSet.clear();
 		pIMImportSet = new ArrayList<String>();
+		pIMClassInheritSet = new ArrayList<String>();
 		pIMConstantSet = new ArrayList<String>();
 		pIMHelperCode = new ArrayList<String>();
 		mMClassSet.add(this);
@@ -446,6 +458,17 @@ public class MMClass {
 		return pIMImportSet;
 	}
 
+	public ArrayList<String> pIMClassInherits() {
+		// description
+		// a PIM Overlay layer helper function that returns all of the imports for this
+		// class
+		// requires
+		// none
+		// guarantees
+		// returns the PIM Overlay import list
+		return pIMClassInheritSet;
+	}
+
 	public ArrayList<String> pIMConstants() {
 		// description
 		// a PIM Overlay layer helper function that returns all of the constants for
@@ -565,6 +588,28 @@ public class MMClass {
 		pIMImportSet.add(anImportStatement);
 	}
 
+	public void clearPIMClassInherits() {
+		// description
+		// a PIM Overlay layer helper function that clears all of the imports for this
+		// class
+		// requires
+		// none
+		// guarantees
+		// PIM Overlay import list has been set to an empty ArrayList
+		pIMClassInheritSet = new ArrayList<String>();
+	}
+
+	public void addPIMClassInherit(String anImportStatement) {
+		// description
+		// a PIM Overlay layer helper function that appends the given import statement
+		// for this class
+		// requires
+		// none
+		// guarantees
+		// the given line of PIM Overlay import statement has been appended
+		pIMClassInheritSet.add(anImportStatement);
+	}
+
 	public void clearPIMConstants() {
 		// description
 		// a PIM Overlay layer helper function that clears all of the constants for this
@@ -679,7 +724,9 @@ public class MMClass {
 		}
 		this.rulePIMImportsList();
 		Context.codeOutput().indent();
-		Context.codeOutput().println("class " + NameService.asClassLevelName(name) + ":");
+		// do not go next line
+		Context.codeOutput().print("class " + NameService.asClassLevelName(name));
+		this.rulePIMClassInheritsList();
 		Context.codeOutput().println("");
 		Context.codeOutput().indentMore();
 		DateFormat aDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -740,6 +787,41 @@ public class MMClass {
 		}
 		Context.codeOutput().println("# see MMClass.rulePIMImportsList for implementation");
 		Context.codeOutput().println("");
+	}
+
+	public void rulePIMClassInheritsList() {
+		// description
+		// This rule emits the set of django model inherits
+		// e.g., "import java.util.ArrayList;
+		// for now, ArrayList is the only standard import needed. Can add more later if
+		// relevant
+		//
+		// Class.#PIM_CLASS_INHERITS_LIST -->
+		// 'import java.util.ArrayList;'
+		// foreach class inherits just comma separated
+		//
+		// requires
+		// none
+		// guarantees
+		// the set of django model classes to be inherited
+		Context.codeOutput().print("(");
+		int count = pIMClassInheritSet.size();
+		int counter = 0;
+		for (String anImportStatement : pIMClassInheritSet) {
+			Context.codeOutput().indent();
+			Context.codeOutput().print(anImportStatement);
+			counter++;
+			if (counter < count) {
+				Context.codeOutput().println(",");
+			} else {
+				Context.codeOutput().println("):");
+			}
+		}
+		Context.codeOutput().indent();
+		Context.codeOutput().indentMore();
+		Context.codeOutput().println("# see MMClass.rulePIMClassInheritsList for class inherits");
+		Context.codeOutput().println("");
+		Context.codeOutput().indentLess();
 	}
 
 	public void ruleClassDescription() {

@@ -5,9 +5,11 @@ from model_utils import Choices
 from model_utils.fields import StatusField
 # see MMClass.rulePIMImportsList for implementation
 
-class SimpleClass:
+class SimpleClass(models.Model):
+    # see MMClass.rulePIMClassInheritsList for class inherits
+    
 
-    # generated 2020/09/19 17:09:25 by JAL open model compiler v5.3
+    # generated 2020/10/03 20:11:14 by JAL open model compiler v5.3
     
     
     # Class description
